@@ -17,7 +17,8 @@ jobs:
       - name: Go to the app directory
         run: |
           ls -la
-          cd react-demo
+          cd ./react-demo
+          ls -la
 
       - name: Install dependencies
         run: npm ci
