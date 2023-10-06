@@ -14,16 +14,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Go to the app directory
-        run: |
-          ls -la
-          cd ./react-demo
-          ls -la
-
       - name: Install dependencies
+        working-directory: ./react-demo
         run: |
-          ls -la
           npm ci
 
       - name: Run tests
+        working-directory: ./react-demo
         run: npm test
