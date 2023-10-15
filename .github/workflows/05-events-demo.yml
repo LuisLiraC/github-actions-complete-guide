@@ -1,0 +1,38 @@
+name: Events Demo 1
+on:
+  pull_request:
+    types: # Activity types that will trigger the workflow
+      - opened
+    branches:
+      - main
+      - 'dev-*' # dev-new dev-this-is-a-new-feature
+      - 'feat/**' # feat/new feat/new/button
+  # This workflow only runs when a pu
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'dev-*' # dev-new dev-this-is-a-new-feature
+      - 'feat/**' # feat/new feat/new/button
+    paths-ignore:
+      - '.github/workflows/*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output event data
+        run: echo "${{ toJSON(github.event) }}"
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        working-directory: ./05-practice-project-events
+        run: npm ci
+      - name: Test code
+        working-directory: ./05-practice-project-events
+        run: npm run test
+      - name: Build code
+        working-directory: ./05-practice-project-events
+        run: npm run build
+      - name: Deploy project
+        run: echo "Deploying..."
